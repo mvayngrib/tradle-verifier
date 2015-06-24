@@ -1,0 +1,38 @@
+{
+  "name": "tradle-verifier",
+  "version": "1.0.0",
+  "description": "plugin-based verifier for on-chain objects",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/*.js",
+    "style": "standard"
+  },
+  "pre-commit": [
+    "style",
+    "test"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mvayngrib/tradle-verifier"
+  },
+  "keywords": [
+    "tradle",
+    "bitcoin",
+    "blockchain"
+  ],
+  "author": "Mark Vayngrib <mark.vayngrib@lablz.com> (http://github.com/mvayngrib)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mvayngrib/tradle-verifier/issues"
+  },
+  "homepage": "https://github.com/mvayngrib/tradle-verifier",
+  "dependencies": {
+    "chained-obj": "git://github.com/tradle/chained-obj",
+    "midentity": "git://github.com/tradle/identity",
+    "object.omit": "^1.1.0"
+  },
+  "devDependencies": {
+    "pre-commit": "^1.0.10",
+    "standard": "^4.3.2"
+  }
+}
