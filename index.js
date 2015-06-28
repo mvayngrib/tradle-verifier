@@ -7,6 +7,7 @@ var debug = require('debug')('verifier')
 var safe = require('safecb')
 
 module.exports = Verifier
+module.exports.plugins = require('./plugins')
 util.inherits(Verifier, Transform)
 
 function Verifier (options) {

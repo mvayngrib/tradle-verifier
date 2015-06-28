@@ -5,7 +5,7 @@ var Identity = require('midentity').Identity
 
 module.exports = {
   verify: function (verifier, chainedObj, cb, next) {
-    var data = chainedObj.parsed.data.value
+    var data = chainedObj.parsed.data
     var sig = data._sig
     // unsigned objects are fine, they don't claim to be created by anyone
     if (typeof sig === 'undefined') return next(verifier, chainedObj, cb)

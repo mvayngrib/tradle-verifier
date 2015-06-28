@@ -1,7 +1,7 @@
 
 module.exports = {
   verify: function (verifier, obj, cb, next) {
-    var data = obj.parsed.data.value
+    var data = obj.parsed.data
 
     if (!('_prev' in data)) return true
 

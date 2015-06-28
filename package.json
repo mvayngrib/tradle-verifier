@@ -28,8 +28,11 @@
   "homepage": "https://github.com/mvayngrib/tradle-verifier",
   "dependencies": {
     "chained-obj": "git://github.com/tradle/chained-obj",
+    "externr": "^1.0.0",
     "midentity": "git://github.com/tradle/identity",
-    "object.omit": "^1.1.0"
+    "object.omit": "^1.1.0",
+    "safecb": "0.0.1",
+    "typeforce": "^1.1.2"
   },
   "devDependencies": {
     "pre-commit": "^1.0.10",
