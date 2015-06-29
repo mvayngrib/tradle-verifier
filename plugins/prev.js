@@ -1,11 +1,14 @@
 
+var constants = require('tradle-constants')
+var PREV_HASH = constants.PREV_HASH
+
 module.exports = {
   verify: function (verifier, obj, cb, next) {
     var data = obj.parsed.data
 
-    if (!('_prev' in data)) return true
+    if (!(PREV_HASH in data)) return next(verifier, obj, cb)
 
-    return verifier.lookup(data._prev, function (err, prev) {
+    return verifier.lookup(data[PREV_HASH], function (err, prev) {
       if (err) return cb(err)
 
       if ((obj.from && !prev.from) || (!obj.from && prev.from)) return cb(new Error('...'))

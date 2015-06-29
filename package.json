@@ -32,6 +32,7 @@
     "midentity": "git://github.com/tradle/identity",
     "object.omit": "^1.1.0",
     "safecb": "0.0.1",
+    "tradle-constants": "git://github.com/mvayngrib/tradle-constants",
     "typeforce": "^1.1.2"
   },
   "devDependencies": {

@@ -41,5 +41,7 @@ Verifier.prototype._transform = function (chainedObj, enc, done) {
 }
 
 Verifier.prototype.verify = function (obj, cb) {
-  this._externs.verify(this, [ this, obj, safe(cb) ])
+  this._externs.verify(this, [ this, obj, safe(cb) ], function (verifier, obj, cb) {
+    cb(null, true)
+  })
 }
