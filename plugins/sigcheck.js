@@ -3,11 +3,10 @@ var omit = require('object.omit')
 var Builder = require('chained-obj').Builder
 var Identity = require('midentity').Identity
 var constants = require('tradle-constants')
+var parallel = require('run-parallel')
 var SIG = constants.SIG
 var TYPE = constants.TYPE
 var PREV_HASH = constants.PREV_HASH
-var CUR_HASH = constants.CUR_HASH
-var ROOT_HASH = constants.ROOT_HASH
 
 module.exports = {
   verify: function (verifier, chainedObj, cb, next) {
@@ -31,16 +30,7 @@ module.exports = {
       purpose: purpose
     })
 
-    var skipProps = [
-      CUR_HASH,
-      SIG
-    ]
-
-    if (!data[CUR_HASH] || data[CUR_HASH] === data[ROOT_HASH]) {
-      skipProps.push(ROOT_HASH)
-    }
-
-    var unsigned = omit(data, skipProps)
+    var unsigned = omit(data, [SIG])
 
     var rebuild = new Builder().data(unsigned)
     chainedObj.parsed.attachments.forEach(rebuild.attach, rebuild)
@@ -48,15 +38,19 @@ module.exports = {
       if (err) return cb(err)
 
       var buf = result.form
-      var verified = keys.some(function (key) {
-        return key.verify(buf, sig)
+      var verifications = keys.map(function (k) {
+        return k.verify.bind(k, buf, sig)
       })
 
-      if (verified) {
-        next(verifier, chainedObj, cb)
-      } else {
-        cb(new Error('no key verifies signature'))
-      }
+      parallel(verifications, function (err, results) {
+        if (err) return cb(err)
+
+        if (results.some(function (r) { return r })) {
+          next(verifier, chainedObj, cb)
+        } else {
+          cb(new Error('no key verifies signature'))
+        }
+      })
     })
   }
 }

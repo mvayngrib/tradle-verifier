@@ -31,6 +31,7 @@
     "externr": "^1.0.0",
     "midentity": "git://github.com/tradle/identity",
     "object.omit": "^1.1.0",
+    "run-parallel": "^1.1.2",
     "safecb": "0.0.1",
     "tradle-constants": "^1.0.0",
     "typeforce": "^1.1.2"
