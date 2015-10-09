@@ -15,7 +15,7 @@ module.exports = {
     // unsigned objects are fine, they don't claim to be created by anyone
     if (typeof sig === 'undefined') return next(verifier, chainedObj, cb)
 
-    var identity = chainedObj.from
+    var identity = chainedObj.from && chainedObj.from.identity
     if (!identity) return cb(new Error('unknown sender'))
 
     var isIdentity = data[TYPE] === Identity.TYPE
