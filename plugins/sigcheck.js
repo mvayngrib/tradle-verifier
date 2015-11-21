@@ -1,8 +1,8 @@
 
 var omit = require('object.omit')
-var Builder = require('chained-obj').Builder
-var Identity = require('midentity').Identity
-var constants = require('tradle-constants')
+var Builder = require('@tradle/chained-obj').Builder
+var Identity = require('@tradle/identity').Identity
+var constants = require('@tradle/constants')
 var parallel = require('run-parallel')
 var SIGNEE = constants.SIGNEE
 var SIG = constants.SIG

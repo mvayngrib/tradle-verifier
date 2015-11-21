@@ -1,6 +1,6 @@
 
-var Identity = require('midentity').Identity
-var constants = require('tradle-constants')
+var Identity = require('@tradle/identity').Identity
+var constants = require('@tradle/constants')
 var TYPE = constants.TYPE
 
 module.exports = {

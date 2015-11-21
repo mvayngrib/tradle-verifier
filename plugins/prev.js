@@ -1,5 +1,5 @@
 
-var constants = require('tradle-constants')
+var constants = require('@tradle/constants')
 var PREV_HASH = constants.PREV_HASH
 
 module.exports = {
