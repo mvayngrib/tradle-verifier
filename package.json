@@ -1,6 +1,6 @@
 {
   "name": "@tradle/verifier",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "plugin-based verifier for on-chain objects",
   "main": "index.js",
   "scripts": {
