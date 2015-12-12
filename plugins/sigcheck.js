@@ -1,9 +1,9 @@
 
+var Q = require('q')
 var omit = require('object.omit')
 var Builder = require('@tradle/chained-obj').Builder
 var Identity = require('@tradle/identity').Identity
 var constants = require('@tradle/constants')
-var parallel = require('run-parallel')
 var SIGNEE = constants.SIGNEE
 var SIG = constants.SIG
 var TYPE = constants.TYPE
@@ -54,26 +54,22 @@ module.exports = {
 
       var unsigned = omit(data, [SIG])
 
-      var rebuild = new Builder().data(unsigned)
-      chainedObj.parsed.attachments.forEach(rebuild.attach, rebuild)
-      rebuild.build(function (err, result) {
-        if (err) return cb(err)
-
-        var buf = result.form
-        var verifications = keys.map(function (k) {
-          return k.verify.bind(k, buf, sig)
+      new Builder()
+        .data(unsigned)
+        .build()
+        .then(function (buf) {
+          return Q.allSettled(keys.map(function (k) {
+            return Q.ninvoke(k, 'verify', buf, sig)
+          }))
         })
-
-        parallel(verifications, function (err, results) {
-          if (err) return cb(err)
-
-          if (results.some(function (r) { return r })) {
+        .catch(cb)
+        .then(function (results) {
+          if (results.some(function (r) { return r.value })) {
             next(verifier, chainedObj, cb)
           } else {
             cb(new Error('no key verifies signature'))
           }
         })
-      })
     }
   }
 }
