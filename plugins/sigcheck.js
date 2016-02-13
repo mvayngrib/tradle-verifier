@@ -67,6 +67,11 @@ module.exports = {
           if (results.some(function (r) { return r.value })) {
             next(verifier, chainedObj, cb)
           } else {
+            var keysStr = JSON.stringify(keys.map(function (k) {
+              return k.exportPublic()
+            }), null, 2)
+
+            console.warn('no key verifies signature. Keys: ' + keysStr + ', sig: ' + sig)
             cb(new Error('no key verifies signature'))
           }
         })
